@@ -1,9 +1,7 @@
 <template>
     <h1>Ljudio</h1>
 
-    <router-link to="/">Player</router-link> | 
-    <router-link to="/vuex-player">VuexPlayer</router-link> | 
-    <router-link to="/action">Action</router-link>
+    <router-link to="/">Player</router-link>
 
     <router-view></router-view> 
     <FooterComponent/>

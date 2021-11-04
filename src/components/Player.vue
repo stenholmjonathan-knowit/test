@@ -11,7 +11,6 @@ export default {
   methods:{
     play(id){
       // calling global variable
-      console.log(id)
       window.player.loadVideoById(id)
       window.player.playVideo()
     },
