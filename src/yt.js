@@ -2,8 +2,8 @@
 function onYouTubeIframeAPIReady() {
     // using global variable
     window.player = new YT.Player('yt-player', {
-      height: '0',
-      width: '0',
+      height: '250',
+      width: '250',
       events: {
         'onStateChange': onPlayerStateChange
       }

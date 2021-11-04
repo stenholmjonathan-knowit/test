@@ -1,7 +1,7 @@
 import { createStore } from "vuex" 
 
 const state = {
-    data: []
+    data: {}
 }
 
 const mutations = {
@@ -15,8 +15,15 @@ const actions = {
         let result = await fetch('https://yt-music-api.herokuapp.com/api/yt/songs/nothing%20else%20matters')
         let data = await result.json()
         commit('playSong', data)
+    },
+    async searchForSong({commit, textFromSearchField}){
+
+        let result = await fetch('https://yt-music-api.herokuapp.com/api/yt/songs/' + textFromSearchField)
+        let data = await result.json()
+        commit('playSong', data)
     }
 }
+
 
 export default createStore ({
     state, mutations, actions
