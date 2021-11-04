@@ -1,21 +1,20 @@
 import { createStore } from "vuex" 
 
 const state = {
-    title: 'VuexPlayer'
+    data: []
 }
 
 const mutations = {
     playSong(state, value){
-        state.title = value
+        state.data = value
     }
 }
 
 const actions = {
     async loadSong({commit}){
-        let result = await fetch('https://yt-music-api.herokuapp.com/api/yt/artists/metallica')
+        let result = await fetch('https://yt-music-api.herokuapp.com/api/yt/songs/nothing%20else%20matters')
         let data = await result.json()
-        console.log(data);
-        commit('playSong', data.title)
+        commit('playSong', data)
     }
 }
 

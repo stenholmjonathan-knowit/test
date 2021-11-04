@@ -3,6 +3,7 @@
     <button @click="play('DXxeOvvNNwc')">The Black Page #1 on piano</button>
     <button @click="play('CtkZxnkbjtI')">The Black Page #2 live band</button>
     <button @click="pause()">Pause</button>
+    <button @click="loadSong">Play Metallica</button>
   </div>
 </template>
 
@@ -16,6 +17,9 @@ export default {
     },
     pause(){
       window.player.pauseVideo()
+    },
+    loadSong(){
+      this.$store.dispatch('loadSong')
     }
   }
 }
