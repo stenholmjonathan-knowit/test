@@ -1,12 +1,14 @@
 <template>
   <div>
+    <button @click="playSong()">Play</button>
     <button @click="pause()">Pause</button>
+    <button @click="playPreviousVideo()">Play Previous Song</button>
     <button @click="playNextVideo()">Play Next Song</button>
     <input type="text" placeholder="Search for a song" v-model="name" />
-    <button @click="searchSong">Search for a song</button>
+    <button @click="searchSong">Search</button>
     <ol>
       <li v-for='songs in this.$store.state.data.content' :key="songs">
-        <button @click="play(songs.videoId)">{{ songs.name }}</button>
+        <button @click="playByIndex(songs.videoId)">{{ songs.name }}</button>
       </li>
     </ol>
     
@@ -21,26 +23,41 @@ export default {
     }
   },
   methods:{
-    play(id){
-      // calling global variable
-      window.player.loadVideoById(id)
+    playByIndex(id){
+      for (let index = 0; index < this.$store.state.data.content.length; index++) {
+        if (this.$store.state.data.content[index].videoId == id) {
+          window.player.playVideoAt(index)
+        }
+      }
+    },
+    playSong(){
       window.player.playVideo()
     },
     pause(){
       window.player.pauseVideo()
     },
-    searchSong() {
-      this.$store.dispatch('searchForSong', [this.name])
-      
+    async searchSong() {
+      await this.$store.dispatch('searchForSong', [this.name])
+
       var videoIdsArray = []
       for (let index = 0; index < this.$store.state.data.content.length; index++) {
         videoIdsArray.push(this.$store.state.data.content[index].videoId);
       }
 
-      window.player.loadPlaylist(videoIdsArray)
+      await window.player.loadPlaylist(videoIdsArray)
+      const loadSongs = new Promise((resolve) => {
+        resolve(window.player.loadPlaylist(videoIdsArray))
+      });
+
+      loadSongs.then(() => {
+        window.player.pauseVideo()
+      });
     },
     playNextVideo(){
       window.player.nextVideo()
+    },
+    playPreviousVideo(){
+      window.player.previousVideo()
     }
   },
   mounted() {
