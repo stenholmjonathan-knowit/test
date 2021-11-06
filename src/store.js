@@ -24,7 +24,6 @@ const actions = {
     }
 }
 
-
 export default createStore ({
     state, mutations, actions
 })

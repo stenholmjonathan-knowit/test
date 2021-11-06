@@ -42,13 +42,16 @@ export default {
     this.$store.state.data
   },
   created(){
-    //console.log(this.$store.state.data)
-    //var tempArray
-    //for (let index = 0; index < this.$store.state.data.content.lenght; index++) {
-    //  tempArray[index] = this.$store.state.data.content[index].videoId;
-    //}
-    //console.log(tempArray)
-    //player.loadPlaylist(tempArray)
+    this.$store.dispatch('loadSong')
+    this.$store.state.data
+    console.log('This is state now: ')
+    console.log(this.$store.state.data)
+    var videoIdsArray
+    for (let index = 0; index < this.$store.state.data.content.lenght; index++) {
+      videoIdsArray[index] = this.$store.state.data.content[index].videoId;
+    }
+    console.log('This is state now: ' + videoIdsArray)
+    player.loadPlaylist(videoIdsArray)
   }
 }
 </script>
