@@ -16,9 +16,9 @@ const actions = {
         let data = await result.json()
         commit('playSong', data)
     },
-    async searchForSong({commit, textFromSearchField}){
-
-        let result = await fetch('https://yt-music-api.herokuapp.com/api/yt/songs/' + textFromSearchField)
+    async searchForSong({commit}, [name]){
+        console.log('From Store: ' + name);
+        let result = await fetch('https://yt-music-api.herokuapp.com/api/yt/songs/' + name)
         let data = await result.json()
         commit('playSong', data)
     }
