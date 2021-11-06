@@ -59,10 +59,6 @@ export default {
     playPreviousVideo(){
       window.player.previousVideo()
     }
-  },
-  mounted() {
-    this.$store.dispatch('loadSong')
-    this.$store.state.data
   }
 }
 </script>
