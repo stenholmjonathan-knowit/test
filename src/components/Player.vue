@@ -1,7 +1,7 @@
 <template>
   <div>
     <button @click="pause()">Pause</button>
-    <button @click="playNextVideo()">Play Next Video</button>
+    <button @click="playNextVideo()">Play Next Song</button>
     <input type="text" placeholder="Search for a song" v-model="name" />
     <button @click="searchSong">Search for a song</button>
     <ol>
@@ -30,28 +30,22 @@ export default {
       window.player.pauseVideo()
     },
     searchSong() {
-      console.log(this.name); // logs the input value
       this.$store.dispatch('searchForSong', [this.name])
+      
+      var videoIdsArray = []
+      for (let index = 0; index < this.$store.state.data.content.length; index++) {
+        videoIdsArray.push(this.$store.state.data.content[index].videoId);
+      }
+
+      window.player.loadPlaylist(videoIdsArray)
     },
     playNextVideo(){
-      player.nextVideo()
+      window.player.nextVideo()
     }
   },
   mounted() {
     this.$store.dispatch('loadSong')
     this.$store.state.data
-  },
-  created(){
-    this.$store.dispatch('loadSong')
-    this.$store.state.data
-    console.log('This is state now: ')
-    console.log(this.$store.state.data)
-    var videoIdsArray
-    for (let index = 0; index < this.$store.state.data.content.lenght; index++) {
-      videoIdsArray[index] = this.$store.state.data.content[index].videoId;
-    }
-    console.log('This is state now: ' + videoIdsArray)
-    player.loadPlaylist(videoIdsArray)
   }
 }
 </script>
